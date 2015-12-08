@@ -1,3 +1,5 @@
+.PHONY: tools java-starter clean-downloads test-run
+
 tools:
 	wget http://ants.aichallenge.org/tools.tar.bz2
 	tar xvfj tools.tar.bz2
