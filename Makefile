@@ -11,3 +11,6 @@ start: java-starter tools
 
 clean-downloads:
 	rm java_starter_package.zip tools.tar.bz2
+
+test-run:
+	cd tools; ./play_one_game_live.sh
