@@ -8,3 +8,6 @@ java-starter:
 
 start: java-starter tools
 	@echo "Ready to start"
+
+clean-downloads:
+	rm java_starter_package.zip tools.tar.bz2
