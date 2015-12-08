@@ -1,4 +1,4 @@
-.PHONY: tools java-starter clean-downloads test-run start/MyBot.jar
+.PHONY: tools java-starter clean-downloads test-run start/MyBot.jar all
 
 tools:
 	wget http://ants.aichallenge.org/tools.tar.bz2
@@ -19,3 +19,9 @@ test-run:
 
 start/start.jar:
 	cd start; make
+
+target:
+	mkdir target
+
+all: start/start.jar target
+	javac -d target -cp start/start.jar src/main/java/nl/cois/**.java
