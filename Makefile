@@ -5,8 +5,8 @@ tools:
 	tar xvfj tools.tar.bz2
 
 java-starter:
-	wget http://ants.aichallenge.org/starter_packages/java_starter_package.zip
-	unzip java_starter_package.zip -d start
+	wget https://s3-eu-west-1.amazonaws.com/ai.aint.starter/start.tar.gz
+	tar xvfz start.tar.gz
 
 start: java-starter tools
 	@echo "Ready to start"
@@ -17,5 +17,5 @@ clean-downloads:
 test-run:
 	cd tools; ./play_one_game_live.sh
 
-start/MyBot.jar:
+start/start.jar:
 	cd start; make

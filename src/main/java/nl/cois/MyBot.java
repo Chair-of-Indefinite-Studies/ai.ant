@@ -1,6 +1,10 @@
 package nl.cois;
 
 import java.io.IOException;
+import start.Bot;
+import start.Ants;
+import start.Tile;
+import start.Aim;
 
 /**
  * Starter bot implementation.
