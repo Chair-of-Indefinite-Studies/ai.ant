@@ -1,4 +1,4 @@
-.PHONY: tools java-starter clean-downloads test-run
+.PHONY: tools java-starter clean-downloads test-run start/MyBot.jar
 
 tools:
 	wget http://ants.aichallenge.org/tools.tar.bz2
@@ -16,3 +16,6 @@ clean-downloads:
 
 test-run:
 	cd tools; ./play_one_game_live.sh
+
+start/MyBot.jar:
+	cd start; make
