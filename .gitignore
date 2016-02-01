@@ -3,3 +3,5 @@
 /start.tar.gz
 /start
 /target
+/.idea
+*.iml
