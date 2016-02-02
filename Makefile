@@ -32,8 +32,11 @@ start/start.jar: start
 target:
 	mkdir target
 
-all: start/start.jar target
-	javac -d target -cp start/start.jar src/main/java/nl/cois/**.java
+sources:
+	find src -name "*.java" > sources
+
+all: start/start.jar target sources
+	javac -d target -cp start/start.jar:target @sources
 
 play: all
 	python tools/playgame.py "java -cp start/start.jar:target nl.cois.DvbBot" "java -cp start/start.jar:target nl.cois.Caecus"  --map_file tools/maps/example/tutorial1.map --log_dir game_logs --turns 60 --scenario --food none --player_seed 7 --verbose -e
