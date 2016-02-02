@@ -1,4 +1,4 @@
-.PHONY: clean-downloads clean-extracts clean test-run all
+.PHONY: clean-downloads clean-extracts clean-target clean test-run all
 
 tools.tar.bz2:
 	wget http://ants.aichallenge.org/tools.tar.bz2
@@ -25,6 +25,9 @@ test-run: tools
 
 start/start.jar: start
 	cd start; make
+
+clean-target:
+	rm -rf target
 
 target:
 	mkdir target
