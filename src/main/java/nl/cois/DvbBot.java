@@ -21,20 +21,35 @@ public class DvbBot extends Bot {
         orders.clear();
         Ants ants = getAnts();
 
-        Map<Tile, Tile> foodTargets = new HashMap<Tile, Tile>();
-        Set<Tile> sortedFoodTiles = new TreeSet<Tile>(ants.getFoodTiles());
-        Set<Tile> sortedAntsTiles = new TreeSet<Tile>(ants.getMyAnts());
-        PriorityQueue<Route> sortedRoutes = new PriorityQueue<Route>();
-        for (Tile foodTile: sortedFoodTiles) {
-            for (Tile ant: sortedAntsTiles) {
-                int distance = ants.getDistance(foodTile, ant);
-                Route route = new Route(ant, foodTile, distance);
+        for (Tile hill: ants.getMyHills()) {
+            orders.put(hill, null);
+        }
 
-                sortedRoutes.add(route);
+        Map<Tile, Tile> foodTargets = new HashMap<Tile, Tile>();
+        Set<Tile> foodTiles = new TreeSet<Tile>(ants.getFoodTiles());
+        Set<Tile> antTiles = new TreeSet<Tile>(ants.getMyAnts());
+        PriorityQueue<Route> bestRoutes = new PriorityQueue<Route>();
+        for (Tile food: foodTiles) {
+            for (Tile ant: antTiles) {
+                int distance = ants.getDistance(food, ant);
+                Route route = new Route(ant, food, distance);
+
+                bestRoutes.add(route);
             }
         }
 
-        for (Route route: sortedRoutes) {
+        for (Tile hill: ants.getMyHills()) {
+            if (ants.getMyAnts().contains(hill) && !orders.containsValue(hill)) {
+                for (Aim direction: Aim.values()) {
+                    if (doMoveDirection(hill, direction)) {
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        for (Route route: bestRoutes) {
             if (!foodTargets.containsKey(route.end) && doMoveLocation(route.start, route.end)) {
                 foodTargets.put(route.end, route.start);
             }
