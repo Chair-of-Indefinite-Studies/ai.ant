@@ -1,10 +1,15 @@
 package nl.cois;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Set;
+
 import start.Bot;
 import start.Ants;
 import start.Tile;
 import start.Aim;
+
+import nl.cois.caecus.Ant;
 
 /**
  * Starter bot implementation.
@@ -28,13 +33,15 @@ public class Caecus extends Bot {
     @Override
     public void doTurn() {
         Ants ants = getAnts();
-        for (Tile myAnt : ants.getMyAnts()) {
-            for (Aim direction : Aim.values()) {
-                if (ants.getIlk(myAnt, direction).isPassable()) {
-                    ants.issueOrder(myAnt, direction);
-                    break;
-                }
-            }
+
+        ArrayList<Ant> myAnts = new ArrayList<Ant>();
+
+        for(Tile a : ants.getMyAnts()) {
+            myAnts.add(new Ant(a));
         }
+
+        Set<Tile> foodTiles = ants.getFoodTiles();
+        
     }
 }
+
