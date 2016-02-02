@@ -1,4 +1,4 @@
-.PHONY: clean-downloads clean-extracts clean-target clean test-run all
+.PHONY: clean test-run all
 
 tools.tar.bz2:
 	wget http://ants.aichallenge.org/tools.tar.bz2
@@ -12,16 +12,9 @@ start.tar.gz:
 start: start.tar.gz
 	tar xvfz start.tar.gz
 
-clean-downloads:
-	rm start.tar.gz tools.tar.bz2
-
-clean-extracts:
-	rm -rf start tools
-
-clean-target:
+clean:
 	rm -rf target
-
-clean: clean-downloads clean-target
+	rm sources
 
 test-run: tools
 	cd tools; ./play_one_game_live.sh
