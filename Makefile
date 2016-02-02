@@ -18,16 +18,16 @@ clean-downloads:
 clean-extracts:
 	rm -rf start tools
 
-clean: clean-downloads clean-extracts
+clean-target:
+	rm -rf target
+
+clean: clean-downloads clean-target
 
 test-run: tools
 	cd tools; ./play_one_game_live.sh
 
 start/start.jar: start
 	cd start; make
-
-clean-target:
-	rm -rf target
 
 target:
 	mkdir target
