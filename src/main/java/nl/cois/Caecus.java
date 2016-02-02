@@ -22,14 +22,12 @@ public class Caecus extends Bot {
      * 
      * @throws IOException if an I/O error occurs
      */
+
     public static void main(String[] args) throws IOException {
         new Caecus().readSystemInput();
     }
     
-    /**
-     * For every ant check every direction in fixed order (N, E, S, W) and move it if the tile is
-     * passable.
-     */
+
     @Override
     public void doTurn() {
         Ants ants = getAnts();
@@ -37,11 +35,57 @@ public class Caecus extends Bot {
         ArrayList<Ant> myAnts = new ArrayList<Ant>();
 
         for(Tile a : ants.getMyAnts()) {
-            myAnts.add(new Ant(a));
+            myAnts.add(new Ant(ants, a));
         }
 
         Set<Tile> foodTiles = ants.getFoodTiles();
-        
+
+        for(Ant a: myAnts) {
+            if(a.getTarget() == null) {
+                int closestFoodTileDistance = -1;
+                Tile closestFoodTile = a.getLocation();
+
+                for(Tile foodTile : foodTiles) {
+                    if(closestFoodTileDistance == -1) {
+                        closestFoodTileDistance = ants.getDistance(a.getLocation(), foodTile);
+                        closestFoodTile = foodTile;
+                        continue;
+                    }
+                    int distanceFromAnt = ants.getDistance(a.getLocation(), foodTile);
+                    if(distanceFromAnt < closestFoodTileDistance) {
+                        closestFoodTileDistance = distanceFromAnt;
+                        closestFoodTile = foodTile;
+                        continue;
+                    }
+
+                }
+
+                if(closestFoodTile != null) {
+                    a.setTarget(closestFoodTile);
+
+                }
+
+            }
+            if(a.getTarget() != null) {
+                try {
+                    foodTiles.remove(a.getTarget());
+                } catch (Exception E) {
+                    //don't care
+                }
+            }
+
+            Aim order = a.getOrder();
+
+            if(order != null) {
+                ants.issueOrder(a.getLocation(), order);
+            }
+            if(a.reachedTarget()) {
+                a.setTarget(null);
+            }
+
+
+
+        }
     }
 }
 
