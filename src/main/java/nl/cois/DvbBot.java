@@ -38,7 +38,7 @@ public class DvbBot extends Bot {
         Tile nextLocation = ants.getTile(location, direction);
 
         if (ants.getIlk(nextLocation).isUnoccupied() && !orders.containsKey(nextLocation)) {
-            ants.issueOrder(nextLocation, direction);
+            ants.issueOrder(location, direction);
             orders.put(nextLocation, location);
             return true;
         }
